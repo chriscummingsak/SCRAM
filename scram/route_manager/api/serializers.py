@@ -51,8 +51,21 @@ class EntrySerializer(serializers.HyperlinkedModelSerializer):
         entry_instance, created = Entry.objects.get_or_create(
             route=route_instance, actiontype=actiontype_instance
         )
+        # tmp_exp = validated_data.pop("expiration", "")
+        #
+        # try:
+        #     expiration = parse_datetime(tmp_exp)  # noqa: F841
+        # except ValueError:
+        #     logging.info(f"Could not parse expiration DateTime string {tmp_exp!r}.")
+        #
+        # logger.debug(f"{comment}")
+        #
+        # if expiration:
+        #     entry_instance.expiration = expiration
+        entry_instance.is_active = True
+        entry_instance.who = "admin"
+        logging.info(f"{entry_instance}")
 
-        logger.debug(f"{comment}")
         update_change_reason(entry_instance, comment)
 
         return entry_instance

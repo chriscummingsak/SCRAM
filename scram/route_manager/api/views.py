@@ -6,7 +6,6 @@ from channels.layers import get_channel_layer
 from django.conf import settings
 from django.db.models import Q
 from django.http import Http404
-from django.utils.dateparse import parse_datetime
 from rest_framework import status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -39,21 +38,21 @@ class EntryViewSet(viewsets.ModelViewSet):
     lookup_value_regex = ".*"
     http_method_names = ["get", "post", "head", "delete"]
 
-    # noinspection PyTypeChecker
     def perform_create(self, serializer):
+        logging.debug(f"{serializer.validated_data}")
         actiontype = serializer.validated_data["actiontype"]
         route = serializer.validated_data["route"]
-        comment = serializer.validated_data["comment"]
-        tmp_exp = self.request.POST.get("expiration", "")
+        # comment = serializer.validated_data["comment"]
+        # tmp_exp = self.request.POST.get("expiration", "")
+        #
+        # try:
+        #     expiration = parse_datetime(tmp_exp)  # noqa: F841
+        # except ValueError:
+        #     logging.info(f"Could not parse expiration DateTime string {tmp_exp!r}.")
 
-        try:
-            expiration = parse_datetime(tmp_exp)  # noqa: F841
-        except ValueError:
-            logging.info(f"Could not parse expiration DateTime string {tmp_exp!r}.")
-
-        min_prefix = getattr(settings, f"V{route.version}_MINPREFIX", 0)
-        if route.prefixlen < min_prefix:
-            raise PrefixTooLarge()
+        # min_prefix = getattr(settings, f"V{route.version}_MINPREFIX", 0)
+        # if route.prefixlen < min_prefix:
+        #     raise PrefixTooLarge()
 
         # Don't process if we have the entry in the ignorelist
         overlapping_ignore = IgnoreEntry.objects.filter(route__net_overlaps=route)
@@ -72,16 +71,15 @@ class EntryViewSet(viewsets.ModelViewSet):
                 {"type": "translator_add", "message": {"route": str(route)}},
             )
 
-            serializer.save()
-
-            entry = Entry.objects.get(route__route=route, actiontype__name=actiontype)
-            if expiration:
-                entry.expiration = expiration
-            entry.is_active = True
-            entry.who = self.request.user.username
-            entry.comment = comment
-            logging.info(f"{entry}")
-            entry.save()
+    #
+    #         # entry = Entry.objects.get(route__route=route, actiontype__name=actiontype)
+    #         # if expiration:
+    #         #     entry.expiration = expiration
+    #         # entry.is_active = True
+    #         # entry.who = self.request.user.username
+    #         # entry.comment = comment
+    #         # logging.info(f"{entry}")
+    #         # entry.save()
 
     @staticmethod
     def find_entries(arg, active_filter=None):

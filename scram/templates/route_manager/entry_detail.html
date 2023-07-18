@@ -7,6 +7,8 @@
         <tr>
           <th>Entry</th>
           <th>Actiontype</th>
+          <th>Reason</th>
+          <th>Who</th>
           <th class="text-center">Expiration</th>
           <th>Active</th>
           <th></th>
@@ -14,6 +16,8 @@
         <tr>
           <td>{{ entry.route }}</td>
           <td class="text-center">{{ entry.actiontype.name }}</td>
+          <td>{{ entry.comment }}</td>
+          <td>{{ entry.who }}</td>
           <td>{{ entry.expiration }}</td>
           <td class="text-center">{{ entry.is_active }}</td>
           <td>

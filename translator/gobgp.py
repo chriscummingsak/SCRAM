@@ -69,7 +69,7 @@ class GoBGP(object):
             family=gobgp_pb2.Family(afi=family, safi=gobgp_pb2.Family.SAFI_UNICAST),
         )
 
-    def add_path(self, ip):
+    def add_path(self, ip, event_data):
         path = self._build_path(ip)
 
         logging.info(f"Blocking {ip}")

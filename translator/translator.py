@@ -40,7 +40,7 @@ async def main():
                         continue
 
                     if event_type == "translator_add":
-                        g.add_path(ip)
+                        g.add_path(ip, event_data)
                     elif event_type == "translator_remove":
                         g.del_path(ip)
                     elif event_type == "translator_check":

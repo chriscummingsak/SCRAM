@@ -7,7 +7,7 @@ from behave import then, when
 @when("we add {route} to the block list")
 def add_block(context, route):
     ip = ipaddress.ip_interface(route)
-    event_data = {"type": "translator_add", "message": {"route": "127.0.0.1/32"}
+    event_data = {"type": "translator_add", "message": {"route": "127.0.0.1/32"}}
     context.gobgp.add_path(ip,event_data)
 
 

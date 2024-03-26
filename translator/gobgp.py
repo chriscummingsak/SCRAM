@@ -22,7 +22,7 @@ class GoBGP(object):
         else:
             return gobgp_pb2.Family.AFI_IP
 
-    def _build_path(self, ip):
+    def _build_path(self, ip, event_data):
         origin = Any()
         origin.Pack(
             attribute_pb2.OriginAttribute(
@@ -70,9 +70,12 @@ class GoBGP(object):
         )
 
     def add_path(self, ip, event_data):
-        path = self._build_path(ip)
+        logging.info(f"ip: {ip}, event_data: {event_data}")
+
+        path = self._build_path(ip, event_data)
 
         logging.info(f"Blocking {ip}")
+        logging.info(f"Blocking {event_data}")
 
         self.stub.AddPath(
             gobgp_pb2.AddPathRequest(table_type=gobgp_pb2.GLOBAL, path=path),
@@ -85,7 +88,7 @@ class GoBGP(object):
         self.stub.DeletePath(gobgp_pb2.DeletePathRequest(table_type=gobgp_pb2.GLOBAL), _TIMEOUT_SECONDS)
 
     def del_path(self, ip, event_data):
-        path = self._build_path(ip)
+        path = self._build_path(ip, event_data)
 
         logging.info(f"Unblocking {ip}")
 

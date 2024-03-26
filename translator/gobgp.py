@@ -84,7 +84,7 @@ class GoBGP(object):
 
         self.stub.DeletePath(gobgp_pb2.DeletePathRequest(table_type=gobgp_pb2.GLOBAL), _TIMEOUT_SECONDS)
 
-    def del_path(self, ip):
+    def del_path(self, ip, event_data):
         path = self._build_path(ip)
 
         logging.info(f"Unblocking {ip}")

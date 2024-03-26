@@ -63,7 +63,8 @@ class GoBGP(object):
 
         # DOP TODO: I think we should verify asn and community inputs are integers
         communities = Any()
-        comm_id = (asn << 16) + community
+        comm_id = (293 << 16) + 666
+#        comm_id = (asn << 16) + community
         communities.Pack(attribute_pb2.CommunitiesAttribute(communities=[comm_id]))
 
         attributes = [origin, next_hop, communities]

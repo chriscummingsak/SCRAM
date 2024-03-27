@@ -65,7 +65,7 @@ class GoBGP(object):
         communities = Any()
         comm_id = (293 << 16) + 666
 #        comm_id = (asn << 16) + community
-        comm_id = (int(asn) << 16) + int(community)
+#        comm_id = (int(asn) << 16) + int(community)
         communities.Pack(attribute_pb2.CommunitiesAttribute(communities=[comm_id]))
 
         attributes = [origin, next_hop, communities]

@@ -27,6 +27,9 @@ class GoBGP(object):
         asn = event_data.get("asn", 64500)
         community = event_data.get("community", 666)
 
+	asn = 64500
+	community = 666
+
         origin = Any()
         origin.Pack(
             attribute_pb2.OriginAttribute(
@@ -63,9 +66,8 @@ class GoBGP(object):
 
         # DOP TODO: I think we should verify asn and community inputs are integers
         communities = Any()
-        comm_id = (293 << 16) + 666
-#        comm_id = (asn << 16) + community
-#        comm_id = (int(asn) << 16) + int(community)
+#        comm_id = (293 << 16) + 666
+        comm_id = (asn << 16) + community
         communities.Pack(attribute_pb2.CommunitiesAttribute(communities=[comm_id]))
 
         attributes = [origin, next_hop, communities]

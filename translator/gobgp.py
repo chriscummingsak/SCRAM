@@ -24,10 +24,10 @@ class GoBGP(object):
 
     def _build_path(self, ip, event_data):
 
-        # asn = event_data['message'].get("asn", 64500)
-        # community = event_data['message'].get("community", 666)
-        asn = 64500
-        community = 666
+        asn = event_data['message'].get("asn", 64500)
+        community = event_data['message'].get("community", 666)
+        # asn = 64500
+        # community = 666
 
         origin = Any()
         origin.Pack(

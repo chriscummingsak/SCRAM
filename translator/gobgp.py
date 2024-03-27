@@ -27,8 +27,8 @@ class GoBGP(object):
         asn = event_data.get("asn", 64500)
         community = event_data.get("community", 666)
 
-	asn = 64500
-	community = 666
+        asn = 64500
+        community = 666
 
         origin = Any()
         origin.Pack(

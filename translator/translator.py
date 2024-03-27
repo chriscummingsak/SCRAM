@@ -45,7 +45,7 @@ async def main():
                         g.add_path(ip, new_data)
                     elif event_type == "translator_remove":
                         new_data = copy.deepcopy(event_data)
-                        g.del_path(ip, event_data)
+                        g.del_path(ip, new_data)
                     elif event_type == "translator_check":
                         json_message["type"] = "translator_check_resp"
                         json_message["message"]["is_blocked"] = g.is_blocked(ip)

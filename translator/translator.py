@@ -5,7 +5,6 @@ import ipaddress
 import json
 import logging
 import os
-import copy
 
 import websockets
 from gobgp import GoBGP

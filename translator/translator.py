@@ -5,6 +5,7 @@ import ipaddress
 import json
 import logging
 import os
+import copy
 
 import websockets
 from gobgp import GoBGP
@@ -40,8 +41,10 @@ async def main():
                         continue
 
                     if event_type == "translator_add":
-                        g.add_path(ip, event_data)
+                        new_data = copy.deepcopy(event_data)
+                        g.add_path(ip, new_data)
                     elif event_type == "translator_remove":
+                        new_data = copy.deepcopy(event_data)
                         g.del_path(ip, event_data)
                     elif event_type == "translator_check":
                         json_message["type"] = "translator_check_resp"

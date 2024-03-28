@@ -37,8 +37,8 @@ class GoBGP(object):
 #                asn = event_data['message'].get("asn", 64500)
 #                community = event_data['message'].get("community", 666)
             else:
-              asn = 64500
-              community = 666
+                asn = 64500
+                community = 666
         else:
             asn = 64500
             community = 666

@@ -28,12 +28,13 @@ class GoBGP(object):
         asn = 64500
         community = 666
 
+        logging.info(f"DOP {event_data}")
+
         if event_data:
-            if 'message' in event_data:
-                if 'asn' in event_data['message']:
-                    asn = event_data['message']['asn']
-                if 'community' in event_data['message']:
-                    community = event_data['message']['community']
+            if 'asn' in event_data:
+                asn = event_data['asn']
+            if 'community' in event_data:
+                community = event_data['community']
 
         origin = Any()
         origin.Pack(
@@ -71,6 +72,7 @@ class GoBGP(object):
 
         # DOP TODO: I think we should verify asn and community inputs are integers
         communities = Any()
+        logging.info(f"DOP ASN {asn} DOP COMMUNITY {community}")
         comm_id = (asn << 16) + community
         communities.Pack(attribute_pb2.CommunitiesAttribute(communities=[comm_id]))
 
@@ -83,7 +85,7 @@ class GoBGP(object):
         )
 
     def add_path(self, ip, event_data):
-        logging.info(f"ip: {ip}, event_data: {event_data}")
+        logging.info(f"ADDPATH ip: {ip}, event_data: {event_data}")
 
         path = self._build_path(ip, event_data)
 

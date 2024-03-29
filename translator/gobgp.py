@@ -37,9 +37,6 @@ class GoBGP(object):
 
         logging.debug(f"TYPE - asn: {type(asn)}, community: {type(community)}")
 
-        asn = 64500
-        community = 666
-
         origin = Any()
         origin.Pack(
             attribute_pb2.OriginAttribute(
@@ -76,8 +73,9 @@ class GoBGP(object):
 
         # DOP TODO: I think we should verify asn and community inputs are integers
         communities = Any()
-        logging.info(f"DOP ASN {asn} DOP COMMUNITY {community}")
+        logging.debug(f"SAM ASN {asn} DOP COMMUNITY {community}")
         comm_id = (asn << 16) + community
+        logging.debug(f"SAM AGAIN: {comm_id}")
         communities.Pack(attribute_pb2.CommunitiesAttribute(communities=[comm_id]))
 
         attributes = [origin, next_hop, communities]

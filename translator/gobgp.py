@@ -30,12 +30,11 @@ class GoBGP(object):
 
         logging.info(f"DOP {event_data}")
 
-#        if event_data:
-        if False:
+        if event_data:
             if 'asn' in event_data:
-                asn = event_data['asn']
+                asn = int(event_data['asn'])
             if 'community' in event_data:
-                community = event_data['community']
+                community = int(event_data['community'])
 
         origin = Any()
         origin.Pack(

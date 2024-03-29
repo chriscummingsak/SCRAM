@@ -29,7 +29,7 @@ class GoBGP(object):
         community = 666
 
         logging.info(f"DOP {event_data}")
-	print(f"{event_data})
+        print(f"{event_data})
 
         if event_data:
             if 'asn' in event_data:

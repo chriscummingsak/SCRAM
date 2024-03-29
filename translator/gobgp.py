@@ -23,18 +23,19 @@ class GoBGP(object):
             return gobgp_pb2.Family.AFI_IP
 
     def _build_path(self, ip, event_data):
-
         # defaults
         asn = 64500
         community = 666
 
-        logging.info(f"DOP {event_data}")
+        logging.debug(f"DOP {event_data}")
 
         if event_data:
-            if 'asn' in event_data:
-                asn = event_data['asn']
-            if 'community' in event_data:
-                community = event_data['community']
+            if "asn" in event_data:
+                asn = event_data["asn"]
+            if "community" in event_data:
+                community = event_data["community"]
+
+        logging.debug(f"TYPE - asn: {type(asn)}, community: {type(community)}")
 
         asn = 64500
         community = 666

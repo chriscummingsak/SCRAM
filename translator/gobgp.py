@@ -30,7 +30,8 @@ class GoBGP(object):
 
         logging.info(f"DOP {event_data}")
 
-        if event_data:
+#        if event_data:
+        if False:
             if 'asn' in event_data:
                 asn = event_data['asn']
             if 'community' in event_data:

@@ -38,6 +38,7 @@ pytest:
   - make run
   script:
   - make coverage.xml
+  - docker-compose logs --tail=50 -f translator
   after_script:
   - make clean
   artifacts:
